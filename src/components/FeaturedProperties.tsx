@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { propertyService, Property, ApiError } from '@/lib/api';
+import { propertyService, Property, PropertyImage, ApiError } from '@/lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -14,9 +14,13 @@ export default function FeaturedProperties() {
     const fetchProperties = async () => {
       try {
         setLoading(true);
+        console.log('[FeaturedProperties] Fetching...');
         const data = await propertyService.getFeaturedProperties(6);
+        console.log('[FeaturedProperties] Data received:', data);
+        console.log('[FeaturedProperties] First property images:', data[0]?.images);
         setProperties(data);
       } catch (err) {
+        console.error('[FeaturedProperties] Error:', err);
         if (err instanceof ApiError) {
           setError(err.message);
         } else {
@@ -54,13 +58,34 @@ export default function FeaturedProperties() {
     return 0;
   };
 
+  const getPropertyImages = (images: PropertyImage[] | string[]) => {
+    console.log('[getPropertyImages] Input images:', images);
+    if (!images || images.length === 0) return [];
+    
+    // If images is an array of strings, convert to PropertyImage format
+    if (typeof images[0] === 'string') {
+      const converted = (images as string[]).map((url, index) => ({
+        id: index,
+        url,
+        alt: '',
+        order: index,
+        is_primary: index === 0,
+      }));
+      console.log('[getPropertyImages] Converted string images to:', converted);
+      return converted;
+    }
+    
+    console.log('[getPropertyImages] Already PropertyImage format');
+    return images as PropertyImage[];
+  };
+
   if (loading) {
     return (
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
-            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading properties...</p>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading featured properties...</p>
           </div>
         </div>
       </section>
@@ -72,7 +97,20 @@ export default function FeaturedProperties() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center py-12 text-red-600 dark:text-red-400">
-            <p>Error: {error}</p>
+            <p className="text-xl font-semibold mb-2">Error loading featured properties</p>
+            <p>{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!properties || properties.length === 0) {
+    return (
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="text-center py-12 text-gray-600 dark:text-gray-400">
+            <p className="text-xl">No featured properties found</p>
           </div>
         </div>
       </section>
@@ -98,7 +136,11 @@ export default function FeaturedProperties() {
         {/* Properties Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {properties.map((property) => {
-            const primaryImage = property.images.find(img => img.is_primary) || property.images[0];
+            console.log('[Rendering property]', property.id, 'images:', property.images);
+            const propertyImages = getPropertyImages(property.images);
+            console.log('[Rendering property]', property.id, 'propertyImages:', propertyImages);
+            const primaryImage = propertyImages.find(img => img.is_primary) || propertyImages[0];
+            console.log('[Rendering property]', property.id, 'primaryImage:', primaryImage);
             
             return (
               <Link 

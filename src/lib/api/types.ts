@@ -1,8 +1,10 @@
 export interface MenuItem {
   id: number;
-  title: string;
+  label: string;
   url: string;
-  order: number;
+  icon?: string | null;
+  sort_order: number;
+  open_in_new_tab: boolean;
   parent_id?: number | null;
   children?: MenuItem[];
 }
@@ -36,7 +38,7 @@ export interface Property {
   zip_code?: string;
   latitude?: number;
   longitude?: number;
-  images: PropertyImage[];
+  images: PropertyImage[] | string[];
   features?: PropertyFeature[];
   extra_details?: PropertyFeature[];
   agent_id?: number;
@@ -70,10 +72,21 @@ export interface Page {
   slug: string;
   title: string;
   content: string;
+  shortcodes?: PageShortcode[];
   meta_title?: string;
   meta_description?: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface PageShortcode {
+  type: 'contact-form' | 'property-inquiry-form' | string;
+  position: number;
+  data?: {
+    property_id?: number;
+    property_title?: string;
+    [key: string]: any;
+  };
 }
 
 export interface Post {
@@ -153,8 +166,30 @@ export interface ApiResponse<T> {
 
 export interface PaginatedResponse<T> {
   data: T[];
-  current_page: number;
-  last_page: number;
-  per_page: number;
-  total: number;
+  links?: {
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
+  };
+  meta: {
+    current_page: number;
+    from: number | null;
+    last_page: number;
+    links?: Array<{
+      url: string | null;
+      label: string;
+      page: number | null;
+      active: boolean;
+    }>;
+    path: string;
+    per_page: number;
+    to: number | null;
+    total: number;
+  };
+  // Convenience properties for backward compatibility
+  current_page?: number;
+  last_page?: number;
+  per_page?: number;
+  total?: number;
 }

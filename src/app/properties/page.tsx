@@ -38,6 +38,13 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
 
   const response = await propertyService.getProperties(filters);
 
+  console.log('Properties API Response:', {
+    dataLength: response.data?.length || 0,
+    total: response.total,
+    meta: response.meta,
+    hasData: !!response.data,
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 py-12">
@@ -62,11 +69,11 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
           <main className="lg:col-span-3">
             <div className="mb-6 flex items-center justify-between">
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Showing <span className="font-semibold text-gray-900 dark:text-white">{response.data.length}</span> of{' '}
-                <span className="font-semibold text-gray-900 dark:text-white">{response.total}</span> properties
+                Showing <span className="font-semibold text-gray-900 dark:text-white">{response.data?.length || 0}</span> of{' '}
+                <span className="font-semibold text-gray-900 dark:text-white">{response.total || 0}</span> properties
               </p>
             </div>
-            <PropertyList properties={response.data} pagination={response} />
+            <PropertyList properties={response.data || []} pagination={response} />
           </main>
         </div>
       </div>

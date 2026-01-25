@@ -22,9 +22,37 @@ export interface PropertySearchParams extends PropertyFilters {
 
 export const propertyService = {
   async getProperties(filters?: PropertyFilters): Promise<PaginatedResponse<Property>> {
-    return apiClient.get<PaginatedResponse<Property>>('/properties', {
-      params: filters as Record<string, string | number | boolean>,
+    console.log('[PropertyService] Calling API with filters:', filters);
+    
+    // Remove undefined values from filters
+    const cleanFilters = filters ? Object.fromEntries(
+      Object.entries(filters).filter(([_, value]) => value !== undefined)
+    ) : {};
+    
+    console.log('[PropertyService] Clean filters:', cleanFilters);
+    
+    const response = await apiClient.get<PaginatedResponse<Property>>('/properties', {
+      params: cleanFilters as Record<string, string | number | boolean>,
     });
+    console.log('[PropertyService] Raw API response:', {
+      hasData: !!response.data,
+      dataLength: response.data?.length,
+      hasMeta: !!response.meta,
+      metaTotal: response.meta?.total,
+    });
+    // Add convenience properties from meta for backward compatibility
+    const result = {
+      ...response,
+      current_page: response.meta.current_page,
+      last_page: response.meta.last_page,
+      per_page: response.meta.per_page,
+      total: response.meta.total,
+    };
+    console.log('[PropertyService] Returning result:', {
+      dataLength: result.data?.length,
+      total: result.total,
+    });
+    return result;
   },
 
   async getPropertyById(id: number): Promise<Property> {
@@ -40,9 +68,22 @@ export const propertyService = {
   },
 
   async searchProperties(params: PropertySearchParams): Promise<PaginatedResponse<Property>> {
-    return apiClient.get<PaginatedResponse<Property>>('/properties/search', {
-      params: params as Record<string, string | number | boolean>,
+    // Remove undefined values from params
+    const cleanParams = Object.fromEntries(
+      Object.entries(params).filter(([_, value]) => value !== undefined)
+    );
+    
+    const response = await apiClient.get<PaginatedResponse<Property>>('/properties/search', {
+      params: cleanParams as Record<string, string | number | boolean>,
     });
+    // Add convenience properties from meta for backward compatibility
+    return {
+      ...response,
+      current_page: response.meta.current_page,
+      last_page: response.meta.last_page,
+      per_page: response.meta.per_page,
+      total: response.meta.total,
+    };
   },
 
   async getSimilarProperties(id: number, limit: number = 4): Promise<Property[]> {

@@ -14,16 +14,29 @@ export async function generateMetadata({ params }: PropertyPageProps): Promise<M
     const id = parseInt(params.id);
     const property = await propertyService.getPropertyById(id);
     
+    // Handle both string arrays and PropertyImage arrays
+    const images = Array.isArray(property.images) 
+      ? property.images.map((img, index) => {
+          if (typeof img === 'string') {
+            return {
+              url: img,
+              alt: property.title,
+            };
+          }
+          return {
+            url: img.url,
+            alt: img.alt || property.title,
+          };
+        }).filter((_, index) => index === 0) // Only use first image for OG
+      : [];
+    
     return {
       title: property.title,
       description: property.description,
       openGraph: {
         title: property.title,
         description: property.description,
-        images: property.images.filter(img => img.is_primary).map(img => ({
-          url: img.url,
-          alt: img.alt || property.title,
-        })),
+        images,
       },
     };
   } catch (error) {

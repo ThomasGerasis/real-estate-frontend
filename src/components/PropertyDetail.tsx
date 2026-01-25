@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Property } from '@/lib/api';
+import { Property, PropertyImage } from '@/lib/api';
 import { useState } from 'react';
 
 interface PropertyDetailProps {
@@ -38,9 +38,23 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
     return 0;
   };
 
+  // Convert images to PropertyImage format if needed
+  const propertyImages: PropertyImage[] = property.images.map((img, index) => {
+    if (typeof img === 'string') {
+      return {
+        id: index,
+        url: img,
+        alt: property.title,
+        order: index,
+        is_primary: index === 0,
+      };
+    }
+    return img;
+  });
+
   const features = property.features || property.extra_details || [];
-  const hasImages = property.images && property.images.length > 0;
-  const mainImage = hasImages ? property.images[selectedImage] : null;
+  const hasImages = propertyImages && propertyImages.length > 0;
+  const mainImage = hasImages ? propertyImages[selectedImage] : null;
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -96,9 +110,9 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
             </div>
 
             {/* Image Grid */}
-            {hasImages && property.images.length > 1 && (
+            {hasImages && propertyImages.length > 1 && (
               <div className="lg:col-span-1 grid grid-cols-2 gap-4">
-                {property.images.slice(1, 5).map((image, index) => (
+                {propertyImages.slice(1, 5).map((image, index) => (
                   <button
                     key={image.id}
                     onClick={() => setSelectedImage(index + 1)}
@@ -117,9 +131,9 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
           </div>
 
           {/* Thumbnail Gallery */}
-          {hasImages && property.images.length > 5 && (
+          {hasImages && propertyImages.length > 5 && (
             <div className="mt-6 flex gap-3 overflow-x-auto pb-2">
-              {property.images.map((image, index) => (
+              {propertyImages.map((image, index) => (
                 <button
                   key={image.id}
                   onClick={() => setSelectedImage(index)}

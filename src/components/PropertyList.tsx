@@ -34,6 +34,23 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
     return 0;
   };
 
+  const getPropertyImages = (images: PropertyImage[] | string[]) => {
+    if (!images || images.length === 0) return [];
+    
+    // If images is an array of strings, convert to PropertyImage format
+    if (typeof images[0] === 'string') {
+      return (images as string[]).map((url, index) => ({
+        id: index,
+        url,
+        alt: '',
+        order: index,
+        is_primary: index === 0,
+      }));
+    }
+    
+    return images as PropertyImage[];
+  };
+
   if (!properties || properties.length === 0) {
     return (
       <div className="text-center py-20">
@@ -46,7 +63,8 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {properties.map((property) => {
-          const primaryImage = property.images.find(img => img.is_primary) || property.images[0];
+          const propertyImages = getPropertyImages(property.images);
+          const primaryImage = propertyImages.find(img => img.is_primary) || propertyImages[0];
           
           return (
             <Link 
@@ -138,9 +156,9 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
         })}
       </div>
 
-      {pagination && pagination.last_page > 1 && (
+      {pagination && pagination.last_page && pagination.last_page > 1 && (
         <div className="flex justify-center items-center mt-12 gap-2">
-          {pagination.current_page > 1 && (
+          {pagination.current_page && pagination.current_page > 1 && (
             <Link
               href={`?page=${pagination.current_page - 1}`}
               className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
@@ -151,14 +169,15 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
           
           {Array.from({ length: Math.min(pagination.last_page, 5) }, (_, i) => {
             let pageNum;
+            const currentPage = pagination.current_page || 1;
             if (pagination.last_page <= 5) {
               pageNum = i + 1;
-            } else if (pagination.current_page <= 3) {
+            } else if (currentPage <= 3) {
               pageNum = i + 1;
-            } else if (pagination.current_page >= pagination.last_page - 2) {
+            } else if (currentPage >= pagination.last_page - 2) {
               pageNum = pagination.last_page - 4 + i;
             } else {
-              pageNum = pagination.current_page - 2 + i;
+              pageNum = currentPage - 2 + i;
             }
             
             return (
@@ -166,7 +185,7 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
                 key={pageNum}
                 href={`?page=${pageNum}`}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
-                  pageNum === pagination.current_page
+                  pageNum === currentPage
                     ? 'bg-blue-600 text-white'
                     : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
@@ -176,7 +195,7 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
             );
           })}
 
-          {pagination.current_page < pagination.last_page && (
+          {pagination.current_page && pagination.last_page && pagination.current_page < pagination.last_page && (
             <Link
               href={`?page=${pagination.current_page + 1}`}
               className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
