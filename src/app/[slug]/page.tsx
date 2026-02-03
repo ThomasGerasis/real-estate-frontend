@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { pageService } from '@/lib/api';
-import ShortcodeRenderer from '@/components/ShortcodeRenderer';
+import ContactTemplate from '@/components/templates/ContactTemplate';
+import AboutTemplate from '@/components/templates/AboutTemplate';
+import FullWidthTemplate from '@/components/templates/FullWidthTemplate';
+import DefaultTemplate from '@/components/templates/DefaultTemplate';
 
 interface DynamicPageProps {
   params: {
@@ -28,14 +31,21 @@ export default async function DynamicPage({ params }: DynamicPageProps) {
   try {
     const page = await pageService.getPageBySlug(params.slug);
     
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <article className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">{page.title}</h1>
-          <ShortcodeRenderer content={page.content} shortcodes={page.shortcodes} />
-        </article>
-      </div>
-    );
+    // Render based on template
+    switch (page.template) {
+      case 'contact':
+        return <ContactTemplate page={page} />;
+      
+      case 'about':
+        return <AboutTemplate page={page} />;
+      
+      case 'full-width':
+        return <FullWidthTemplate page={page} />;
+      
+      case 'default':
+      default:
+        return <DefaultTemplate page={page} />;
+    }
   } catch (error) {
     notFound();
   }

@@ -62,7 +62,14 @@ export default function HeroSection() {
     );
   }
 
-  const primaryImage = featuredProperty.images.find(img => img.is_primary) || featuredProperty.images[0];
+  // Get featured image or fallback to first image in images array
+  let imageUrl: string | null = null;
+  if (featuredProperty.featured_image) {
+    imageUrl = featuredProperty.featured_image;
+  } else if (featuredProperty.images && featuredProperty.images.length > 0) {
+    const firstImage = featuredProperty.images[0];
+    imageUrl = typeof firstImage === 'string' ? firstImage : firstImage.url;
+  }
 
   return (
     <section className="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-20 md:py-32 overflow-hidden">
@@ -169,10 +176,10 @@ export default function HeroSection() {
           {/* Right Image */}
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              {primaryImage ? (
+              {imageUrl ? (
                 <div className="relative aspect-[4/5]">
                   <Image
-                    src={primaryImage.url}
+                    src={imageUrl}
                     alt={featuredProperty.title}
                     fill
                     className="object-cover"

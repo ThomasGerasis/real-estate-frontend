@@ -9,3 +9,4 @@ export * from './services/post';
 export * from './services/city';
 export * from './services/setting';
 export * from './services/contact';
+export * from './services/formService';

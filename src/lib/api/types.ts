@@ -38,9 +38,10 @@ export interface Property {
   zip_code?: string;
   latitude?: number;
   longitude?: number;
+  featured_image?: string;
   images: PropertyImage[] | string[];
   features?: PropertyFeature[];
-  extra_details?: PropertyFeature[];
+  extra_details?: Record<string, any>;
   agent_id?: number;
   agent?: Agent;
   is_featured?: boolean;
@@ -72,6 +73,7 @@ export interface Page {
   slug: string;
   title: string;
   content: string;
+  template?: 'default' | 'contact' | 'about' | 'properties' | 'full-width' | string;
   shortcodes?: PageShortcode[];
   meta_title?: string;
   meta_description?: string;

@@ -1,19 +1,23 @@
-import HeroSection from "@/components/HeroSection";
-import CategoriesSection from "@/components/CategoriesSection";
+import HeroSearchSection from "@/components/HeroSearchSection";
+import ApartmentTypes from "@/components/ApartmentTypes";
+import ServicesCards from "@/components/ServicesCards";
 import FeaturedProperties from "@/components/FeaturedProperties";
-import BlogSection from "@/components/BlogSection";
+import CitiesSection from "@/components/CitiesSection";
+import AboutSection from "@/components/AboutSection";
 import { Testimonials } from "@/components/Testimonials";
-import { Faq } from "@/components/Faq";
+import BlogSection from "@/components/BlogSection";
 
 export default function Home() {
   return (
     <>
-      <HeroSection />
-      <CategoriesSection />
+      <HeroSearchSection />
+      <CitiesSection />
       <FeaturedProperties />
-      <Testimonials />
-      <BlogSection />
-      <Faq />
+      <ApartmentTypes />
+      <AboutSection />
+      <ServicesCards />
+      {/* <Testimonials />
+      <BlogSection /> */}
     </>
   );
 }

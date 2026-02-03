@@ -1,0 +1,195 @@
+{
+  "common": {
+    "search": "Search",
+    "filter": "Filter",
+    "price": "Price",
+    "location": "Location",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "area": "Area",
+    "sqm": "sqm",
+    "viewDetails": "View Details",
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "loading": "Loading...",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "navigation": {
+    "home": "Home",
+    "properties": "Properties",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog"
+  },
+  "hero": {
+    "title": "Find Your Perfect Home",
+    "subtitle": "Discover thousands of properties waiting to become your next home",
+    "featuredProperty": "Featured Property",
+    "startingFrom": "Starting from"
+  },
+  "properties": {
+    "title": "Discover Properties",
+    "subtitle": "Explore our curated collection of premium properties designed for modern living",
+    "featured": "Featured Properties",
+    "forSale": "For Sale",
+    "forRent": "For Rent",
+    "perMonth": "/month",
+    "showing": "Showing",
+    "of": "of",
+    "noProperties": "No properties found matching your criteria.",
+    "viewAll": "View All Properties"
+  },
+  "propertyDetail": {
+    "overview": "Overview",
+    "description": "Property Description",
+    "details": "Property Details",
+    "address": "Address",
+    "features": "Features & Amenities",
+    "additionalFeatures": "Additional Features",
+    "energyClass": "Energy Class",
+    "propertyId": "Property ID",
+    "propertySize": "Property Size",
+    "propertyType": "Property Type",
+    "propertyStatus": "Property Status",
+    "yearBuilt": "Year Built",
+    "bedroom": "Bedroom",
+    "bath": "Bath",
+    "sqft": "Sqft",
+    "garage": "Garage",
+    "floor": "Floor",
+    "city": "City",
+    "state": "State/County",
+    "zipCode": "Zip/Postal Code",
+    "getMoreInfo": "Get More Information",
+    "energyEfficiency": "Energy Efficiency",
+    "viewAllPhotos": "View all photos"
+  },
+  "propertyTypes": {
+    "apartment": "Apartment",
+    "house": "House",
+    "villa": "Villa",
+    "land": "Land",
+    "commercial": "Commercial"
+  },
+  "filters": {
+    "title": "Search Filters",
+    "listingType": "Listing Type",
+    "propertyType": "Property Type",
+    "priceRange": "Price Range",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "areaRange": "Area Range",
+    "minArea": "Min",
+    "maxArea": "Max",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "floor": "Floor",
+    "from": "From",
+    "to": "To",
+    "any": "Any",
+    "city": "City",
+    "selectCity": "Select a city",
+    "resetFilters": "Reset Filters",
+    "applyFilters": "Apply Filters"
+  },
+  "forms": {
+    "contact": {
+      "title": "Get in Touch",
+      "name": "Name",
+      "surname": "Surname",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "sendMessage": "Send Message",
+      "successMessage": "Thank you for contacting us! We'll get back to you as soon as possible.",
+      "errorMessage": "There was an error sending your message. Please try again.",
+      "howCanWeHelp": "How can we help you?"
+    },
+    "inquiry": {
+      "title": "Send Inquiry",
+      "interestedIn": "I'm interested in",
+      "successMessage": "Thank you! Your inquiry has been submitted successfully. We'll get back to you soon."
+    },
+    "mandate": {
+      "title": "Request a Mandate",
+      "subtitle": "Fill out the form below and we'll help you sell or rent your property",
+      "propertyInfo": "Property Information",
+      "contactInfo": "Contact Information",
+      "listingType": "Listing Type",
+      "selectType": "Select type",
+      "squareMeters": "Square Meters",
+      "additionalInfo": "Additional Information",
+      "tellUsMore": "Tell us more about your property...",
+      "submitRequest": "Submit Mandate Request",
+      "submitting": "Submitting...",
+      "successMessage": "Thank you! Your mandate request has been submitted successfully. We'll contact you soon to discuss the details."
+    },
+    "generalInquiry": {
+      "title": "Find Your Property",
+      "subtitle": "Tell us what you're looking for and we'll help you find it",
+      "propertyPreferences": "Property Preferences",
+      "contactInfo": "Your Contact Information",
+      "lookingTo": "I'm Looking To",
+      "anyCity": "Any city",
+      "anyType": "Any type",
+      "noMinimum": "No minimum",
+      "noMaximum": "No maximum",
+      "additionalDetails": "Additional Details",
+      "tellUsWhatLooking": "Tell us more about what you're looking for...",
+      "submitInquiry": "Submit Inquiry",
+      "successMessage": "Thank you! Your inquiry has been received. We'll contact you shortly with matching properties."
+    },
+    "required": "required",
+    "select": "Select"
+  },
+  "cities": {
+    "title": "Discover Cities",
+    "subtitle": "Explore properties in the best locations",
+    "properties": "properties"
+  },
+  "about": {
+    "title": "About Us",
+    "mission": "Our Mission",
+    "vision": "Our Vision",
+    "values": "Our Values"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Latest News & Updates",
+    "readMore": "Read More",
+    "recentPosts": "Recent Posts"
+  },
+  "footer": {
+    "description": "Your trusted platform for finding the perfect home",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "newsletterText": "Subscribe to receive updates on new properties",
+    "subscribe": "Subscribe",
+    "allRightsReserved": "All rights reserved"
+  },
+  "services": {
+    "buy": {
+      "title": "Buy Property",
+      "description": "Find your ideal home from our large collection"
+    },
+    "sell": {
+      "title": "Sell Property",
+      "description": "Get the best price for your property"
+    },
+    "rent": {
+      "title": "Rent Property",
+      "description": "Find the perfect rental property"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "phone": "Please enter a valid phone number",
+    "minLength": "Must be at least {min} characters",
+    "maxLength": "Must be at most {max} characters"
+  }
+}

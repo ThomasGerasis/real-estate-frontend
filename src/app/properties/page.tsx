@@ -16,22 +16,30 @@ interface PropertiesPageProps {
     district_id?: string;
     min_price?: string;
     max_price?: string;
+    min_area?: string;
+    max_area?: string;
     bedrooms?: string;
     bathrooms?: string;
+    min_floor?: string;
+    max_floor?: string;
     page?: string;
   };
 }
 
 export default async function PropertiesPage({ searchParams }: PropertiesPageProps) {
   const filters = {
-    type: searchParams.type,
+    listing_type: searchParams.type,
     property_type: searchParams.property_type,
     city_id: searchParams.city_id ? parseInt(searchParams.city_id) : undefined,
     district_id: searchParams.district_id ? parseInt(searchParams.district_id) : undefined,
     min_price: searchParams.min_price ? parseFloat(searchParams.min_price) : undefined,
     max_price: searchParams.max_price ? parseFloat(searchParams.max_price) : undefined,
+    min_area: searchParams.min_area ? parseFloat(searchParams.min_area) : undefined,
+    max_area: searchParams.max_area ? parseFloat(searchParams.max_area) : undefined,
     bedrooms: searchParams.bedrooms ? parseInt(searchParams.bedrooms) : undefined,
     bathrooms: searchParams.bathrooms ? parseInt(searchParams.bathrooms) : undefined,
+    min_floor: searchParams.min_floor ? parseInt(searchParams.min_floor) : undefined,
+    max_floor: searchParams.max_floor ? parseInt(searchParams.max_floor) : undefined,
     page: searchParams.page ? parseInt(searchParams.page) : 1,
     per_page: 12,
   };

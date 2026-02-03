@@ -136,11 +136,8 @@ export default function FeaturedProperties() {
         {/* Properties Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {properties.map((property) => {
-            console.log('[Rendering property]', property.id, 'images:', property.images);
             const propertyImages = getPropertyImages(property.images);
-            console.log('[Rendering property]', property.id, 'propertyImages:', propertyImages);
-            const primaryImage = propertyImages.find(img => img.is_primary) || propertyImages[0];
-            console.log('[Rendering property]', property.id, 'primaryImage:', primaryImage);
+            const featuredImageUrl = property.featured_image || propertyImages[0]?.url;
             
             return (
               <Link 
@@ -149,10 +146,10 @@ export default function FeaturedProperties() {
                 className="group block bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  {primaryImage ? (
+                  {featuredImageUrl ? (
                     <Image
-                      src={primaryImage.url}
-                      alt={primaryImage.alt || property.title}
+                      src={featuredImageUrl}
+                      alt={property.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -184,19 +181,29 @@ export default function FeaturedProperties() {
 
                   <div className="flex items-center gap-4 mb-4 text-sm text-gray-700 dark:text-gray-300 pb-4 border-b border-gray-100 dark:border-gray-700">
                     {property.bedrooms && (
-                      <span className="flex items-center gap-1.5">
-                        <span className="font-semibold">{property.bedrooms}</span> beds
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20 9.557V3h-2v2H6V3H4v6.557C2.81 10.25 2 11.525 2 13v4a1 1 0 001 1h1v4h2v-4h12v4h2v-4h1a1 1 0 001-1v-4c0-1.475-.81-2.75-2-3.443zM18 7v2.127c-.315-.083-.652-.127-1-.127s-.685.044-1 .127V7h2zM4 13c0-1.103.897-2 2-2s2 .897 2 2H4zm14 0c0-1.103.897-2 2-2s2 .897 2 2h-4z"/>
+                        </svg>
+                        <span className="font-medium">{property.bedrooms}</span>
+                      </div>
                     )}
                     {property.bathrooms && (
-                      <span className="flex items-center gap-1.5">
-                        <span className="font-semibold">{property.bathrooms}</span> baths
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M21 10H7V7c0-1.103.897-2 2-2s2 .897 2 2h2c0-2.206-1.794-4-4-4S5 4.794 5 7v3H3a1 1 0 00-1 1v2c0 2.606 1.674 4.823 4 5.65V22h2v-3h8v3h2v-3.35c2.326-.827 4-3.044 4-5.65v-2a1 1 0 00-1-1z"/>
+                        </svg>
+                        <span className="font-medium">{property.bathrooms}</span>
+                      </div>
                     )}
                     {getArea(property) > 0 && (
-                      <span className="flex items-center gap-1.5">
-                        <span className="font-semibold">{getArea(property)}</span> m²
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 00.707-1.707l-9-9a.999.999 0 00-1.414 0l-9 9A1 1 0 003 13z"/>
+                        </svg>
+                        <span className="font-medium">{getArea(property)}</span>
+                        <span className="text-gray-500">m²</span>
+                      </div>
                     )}
                   </div>
 

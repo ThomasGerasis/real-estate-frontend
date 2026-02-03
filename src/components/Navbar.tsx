@@ -22,13 +22,12 @@ export const Navbar = async () => {
               <span>
                 <Image
                   src="/img/logo.svg"
-                  width="32"
-                  alt="N"
-                  height="32"
-                  className="w-8"
+                  width="350"
+                  alt="Logo"
+                  height="80"
+                  className="h-20 w-auto"
                 />
               </span>
-            <span>Nextly</span>
           </span>
         </Link>
 

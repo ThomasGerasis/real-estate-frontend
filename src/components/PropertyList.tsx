@@ -64,7 +64,7 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {properties.map((property) => {
           const propertyImages = getPropertyImages(property.images);
-          const primaryImage = propertyImages.find(img => img.is_primary) || propertyImages[0];
+          const featuredImageUrl = property.featured_image || propertyImages[0]?.url;
           
           return (
             <Link 
@@ -73,10 +73,10 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
               className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
-                {primaryImage ? (
+                {featuredImageUrl ? (
                   <Image
-                    src={primaryImage.url}
-                    alt={primaryImage.alt || property.title}
+                    src={featuredImageUrl}
+                    alt={property.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />

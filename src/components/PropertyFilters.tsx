@@ -1,12 +1,30 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { cityService, City } from '@/lib/api';
 
 export default function PropertyFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
+  const [cities, setCities] = useState<City[]>([]);
+  const [loadingCities, setLoadingCities] = useState(true);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await cityService.getCities(1, 100);
+        setCities(response.data);
+      } catch (error) {
+        console.error('Failed to fetch cities:', error);
+      } finally {
+        setLoadingCities(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   const handleFilterChange = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -64,7 +82,7 @@ export default function PropertyFilters() {
           </div>
 
           <div className="space-y-6">
-            {/* Type */}
+            {/* Listing Type */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
                 Listing Type
@@ -112,6 +130,26 @@ export default function PropertyFilters() {
               </select>
             </div>
 
+            {/* City */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                City
+              </label>
+              <select
+                defaultValue={searchParams.get('city_id') || ''}
+                onChange={(e) => handleFilterChange('city_id', e.target.value)}
+                className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                disabled={loadingCities}
+              >
+                <option value="">All Cities</option>
+                {cities.map((city) => (
+                  <option key={city.id} value={city.id}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* Price Range */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
@@ -139,31 +177,50 @@ export default function PropertyFilters() {
               </div>
             </div>
 
+            {/* Square Meters Range */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                Square Meters
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <input
+                    type="number"
+                    placeholder="Min m²"
+                    defaultValue={searchParams.get('min_area') || ''}
+                    onChange={(e) => handleFilterChange('min_area', e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    placeholder="Max m²"
+                    defaultValue={searchParams.get('max_area') || ''}
+                    onChange={(e) => handleFilterChange('max_area', e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* Bedrooms */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
                 Bedrooms
               </label>
-              <div className="grid grid-cols-6 gap-2">
-                {['Any', '1', '2', '3', '4', '5+'].map((bed) => {
-                  const value = bed === 'Any' ? '' : bed === '5+' ? '5' : bed;
-                  const isActive = searchParams.get('bedrooms') === value || (!searchParams.get('bedrooms') && bed === 'Any');
-                  
-                  return (
-                    <button
-                      key={bed}
-                      onClick={() => handleFilterChange('bedrooms', value)}
-                      className={`px-3 py-2 rounded-lg border font-medium text-sm transition ${
-                        isActive
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400'
-                      }`}
-                    >
-                      {bed}
-                    </button>
-                  );
-                })}
-              </div>
+              <select
+                defaultValue={searchParams.get('bedrooms') || ''}
+                onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
+                className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">Any</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+              </select>
             </div>
 
             {/* Bathrooms */}
@@ -171,25 +228,43 @@ export default function PropertyFilters() {
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
                 Bathrooms
               </label>
-              <div className="grid grid-cols-5 gap-2">
-                {['Any', '1', '2', '3', '4+'].map((bath) => {
-                  const value = bath === 'Any' ? '' : bath === '4+' ? '4' : bath;
-                  const isActive = searchParams.get('bathrooms') === value || (!searchParams.get('bathrooms') && bath === 'Any');
-                  
-                  return (
-                    <button
-                      key={bath}
-                      onClick={() => handleFilterChange('bathrooms', value)}
-                      className={`px-3 py-2 rounded-lg border font-medium text-sm transition ${
-                        isActive
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400'
-                      }`}
-                    >
-                      {bath}
-                    </button>
-                  );
-                })}
+              <select
+                defaultValue={searchParams.get('bathrooms') || ''}
+                onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
+                className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">Any</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+              </select>
+            </div>
+
+            {/* Floor Range */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                Floor
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <input
+                    type="number"
+                    placeholder="From"
+                    defaultValue={searchParams.get('min_floor') || ''}
+                    onChange={(e) => handleFilterChange('min_floor', e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    placeholder="To"
+                    defaultValue={searchParams.get('max_floor') || ''}
+                    onChange={(e) => handleFilterChange('max_floor', e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
               </div>
             </div>
           </div>
