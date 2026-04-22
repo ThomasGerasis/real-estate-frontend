@@ -46,10 +46,10 @@ export default function CitiesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Properties by Cities
+            Ακίνητα ανά Πόλη
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Aliquam lacinia diam quis lacus euismod
+            Εξερευνήστε ακίνητα στις καλύτερες τοποθεσίες
           </p>
         </div>
 
@@ -57,15 +57,24 @@ export default function CitiesSection() {
           {cities.map((city) => (
             <Link
               key={city.id}
-              href={`/properties?city=${city.slug || city.name.toLowerCase().replace(/\s+/g, '-')}`}
+              href={`/properties?city_id=${city.id}`}
               className="group relative rounded-2xl overflow-hidden h-64 block"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
+              {city.featured_image ? (
+                <Image
+                  src={city.featured_image}
+                  alt={city.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="text-2xl font-bold text-white mb-2">{city.name}</h3>
                 <p className="text-white/90">
-                  {city.properties_count || 0} {city.properties_count === 1 ? 'Property' : 'Properties'}
+                  {city.properties_count || 0} {city.properties_count === 1 ? 'Ακίνητο' : 'Ακίνητα'}
                 </p>
               </div>
               <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-all"></div>

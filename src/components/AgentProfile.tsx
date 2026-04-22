@@ -135,8 +135,8 @@ export default function AgentProfile({ agent }: AgentProfileProps) {
 
         {agent.properties_count !== undefined && agent.properties_count > 0 && (
           <div className="mt-12">
-            <h2 className="text-3xl font-bold mb-6">Properties by {agent.name}</h2>
-            <p className="text-gray-600">View all {agent.properties_count} properties listed by this agent.</p>
+            <h2 className="text-3xl font-bold mb-6">Ακίνητα του {agent.name}</h2>
+            <p className="text-gray-600">Δείτε όλα τα {agent.properties_count} ακίνητα αυτού του συνεργάτη.</p>
           </div>
         )}
       </div>

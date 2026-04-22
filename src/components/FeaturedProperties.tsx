@@ -85,7 +85,7 @@ export default function FeaturedProperties() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
-            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading featured properties...</p>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">Φόρτωση προτεινόμενων ακινήτων...</p>
           </div>
         </div>
       </section>
@@ -97,7 +97,7 @@ export default function FeaturedProperties() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center py-12 text-red-600 dark:text-red-400">
-            <p className="text-xl font-semibold mb-2">Error loading featured properties</p>
+            <p className="text-xl font-semibold mb-2">Σφάλμα φόρτωσης ακινήτων</p>
             <p>{error}</p>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default function FeaturedProperties() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center py-12 text-gray-600 dark:text-gray-400">
-            <p className="text-xl">No featured properties found</p>
+            <p className="text-xl">Δεν βρέθηκαν προτεινόμενα ακίνητα</p>
           </div>
         </div>
       </section>
@@ -123,13 +123,13 @@ export default function FeaturedProperties() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <p className="text-blue-600 dark:text-blue-400 font-semibold mb-3 uppercase tracking-wide text-sm">
-            Featured Properties
+            Προτεινόμενα Ακίνητα
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Discover Inspiring Designed Homes
+            Ανακαλύψτε Εμπνευσμένα Σπίτια
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Curated homes where elegance, style, and comfort unite
+            Επιλεγμένα σπίτια όπου κομψότητα, στυλ και άνεση ενώνονται
           </p>
         </div>
 
@@ -162,7 +162,7 @@ export default function FeaturedProperties() {
                   )}
                   <div className="absolute top-4 left-4 flex gap-2">
                     <span className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg">
-                      {property.listing_type === 'sale' ? 'For Sale' : 'For Rent'}
+                      {property.listing_type === 'sale' ? 'Προς Πώληση' : 'Προς Ενοικίαση'}
                     </span>
                   </div>
                 </div>
@@ -173,10 +173,13 @@ export default function FeaturedProperties() {
                   </h3>
                   
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 flex items-center">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                     </svg>
-                    {getCityName(property.city)}, {property.country}
+                    <span className="line-clamp-1">
+                      {property.address}, {getCityName(property.city)}
+                      {property.district && typeof property.district === 'object' ? `, ${property.district.name}` : ''}
+                    </span>
                   </p>
 
                   <div className="flex items-center gap-4 mb-4 text-sm text-gray-700 dark:text-gray-300 pb-4 border-b border-gray-100 dark:border-gray-700">
@@ -210,10 +213,10 @@ export default function FeaturedProperties() {
                   <div className="flex items-center justify-between">
                     <p className="text-2xl font-bold text-gray-900 dark:text-white">
                       {formatPrice(property.price, property.price_formatted)}
-                      {property.listing_type === 'rent' && <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">/mo</span>}
+                      {property.listing_type === 'rent' && <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">/μήνα</span>}
                     </p>
                     <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm group-hover:gap-2 flex items-center gap-1 transition-all">
-                      View
+                      Προβολή
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -231,7 +234,7 @@ export default function FeaturedProperties() {
             href="/properties" 
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl"
           >
-            View All Properties
+            Προβολή Όλων των Ακινήτων
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

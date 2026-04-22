@@ -46,7 +46,7 @@ export default function HeroSearchSection() {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("/img/hero-background.jpg")',
+          backgroundImage: 'url("/img/hero.png")',
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/70 to-purple-900/80" />

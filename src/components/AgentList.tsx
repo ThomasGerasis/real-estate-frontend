@@ -74,7 +74,7 @@ export default function AgentList({ agents, pagination }: AgentListProps) {
               {agent.properties_count !== undefined && (
                 <div className="mt-4 pt-4 border-t">
                   <p className="text-sm text-gray-600">
-                    <span className="font-bold text-lg text-blue-600">{agent.properties_count}</span> Properties
+                    <span className="font-bold text-lg text-blue-600">{agent.properties_count}</span> Ακίνητα
                   </p>
                 </div>
               )}

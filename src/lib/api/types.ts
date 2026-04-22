@@ -134,6 +134,7 @@ export interface City {
   state?: string;
   latitude?: number;
   longitude?: number;
+  featured_image?: string;
   properties_count?: number;
   created_at?: string;
   updated_at?: string;
@@ -150,6 +151,29 @@ export interface District {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface SiteSettings {
+  site_name?: string;
+  site_description?: string;
+  site_logo?: string;
+  site_favicon?: string;
+  contact_email?: string;
+  contact_phone?: string;
+  contact_address?: string;
+  contact_working_hours?: string;
+  social_facebook?: string;
+  social_twitter?: string;
+  social_instagram?: string;
+  social_linkedin?: string;
+  social_youtube?: string;
+  seo_meta_title?: string;
+  seo_meta_description?: string;
+  seo_meta_keywords?: string;
+  footer_text?: string;
+  footer_about?: string;
+  [key: string]: string | undefined;
+}
+
 
 export interface Setting {
   id: number;

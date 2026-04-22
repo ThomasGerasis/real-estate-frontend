@@ -3,15 +3,25 @@ import { ApiResponse, Property, PaginatedResponse } from '../types';
 
 export interface PropertyFilters {
   type?: 'sale' | 'rent';
+  listing_type?: string;
   property_type?: string;
   min_price?: number;
   max_price?: number;
+  min_area?: number;
+  max_area?: number;
   bedrooms?: number;
   bathrooms?: number;
+  min_floor?: number;
+  max_floor?: number;
   city_id?: number;
   district_id?: number;
   page?: number;
   per_page?: number;
+}
+
+export interface PropertyTypeCount {
+  type: string;
+  count: number;
 }
 
 export interface PropertySearchParams extends PropertyFilters {
@@ -91,5 +101,10 @@ export const propertyService = {
       params: { limit },
     });
     return response.data;
+  },
+
+  async getTypeCounts(): Promise<PropertyTypeCount[]> {
+    const response = await apiClient.get<Record<string, number>>('/properties/type-counts');
+    return Object.entries(response).map(([type, count]) => ({ type, count }));
   },
 };

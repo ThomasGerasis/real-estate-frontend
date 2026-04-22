@@ -1,16 +1,24 @@
 import Link from "next/link";
 import ThemeChanger from "./DarkSwitch";
 import Image from "next/image"
-import { menuService } from "@/lib/api";
+import { menuService, settingService, getStorageUrl, MenuItem } from "@/lib/api";
 import DisclosureClient from "./DisclosureClient";
 
 export const Navbar = async () => {
-  let navigation = [];
-  
+  let navigation: MenuItem[] = [];
+  let siteName = 'Real Estate';
+  let logoUrl = '/img/logo.svg';
+
   try {
-    navigation = await menuService.getHeaderMenu();
+    const [menu, settings] = await Promise.all([
+      menuService.getHeaderMenu(),
+      settingService.getAllSettings(),
+    ]);
+    navigation = menu;
+    siteName = settings.site_name || siteName;
+    logoUrl = settings.site_logo ? getStorageUrl(settings.site_logo) : logoUrl;
   } catch (error) {
-    console.error('Failed to load menu:', error);
+    console.error('Failed to load navbar data:', error);
   }
 
   return (
@@ -21,9 +29,9 @@ export const Navbar = async () => {
           <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
               <span>
                 <Image
-                  src="/img/logo.svg"
+                  src={logoUrl}
                   width="350"
-                  alt="Logo"
+                  alt={siteName}
                   height="80"
                   className="h-20 w-auto"
                 />

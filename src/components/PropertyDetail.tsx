@@ -107,7 +107,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
               </div>
               {pricePerSqft > 0 && (
                 <p className="text-gray-600 dark:text-gray-400 text-sm">
-                  ${pricePerSqft.toFixed(2)}/sq ft
+                  ${pricePerSqft.toFixed(2)}/m²
                 </p>
               )}
             </div>
@@ -169,7 +169,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                 <svg className="w-20 h-20 mx-auto text-gray-400 mb-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
-                <p className="text-gray-500 dark:text-gray-400">No images available</p>
+                <p className="text-gray-500 dark:text-gray-400">Δεν υπάρχουν διαθέσιμες φωτογραφίες</p>
               </div>
             </div>
           )}
@@ -197,7 +197,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                       </svg>
-                      View all {propertyImages.length} photos
+                      Δείτε όλες τις {propertyImages.length} φωτογραφίες
                     </span>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                   <svg className="w-20 h-20 mx-auto text-gray-400 mb-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                   </svg>
-                  <p className="text-gray-500 dark:text-gray-400">No images available</p>
+                  <p className="text-gray-500 dark:text-gray-400">Δεν υπάρχουν διαθέσιμες φωτογραφίες</p>
                 </div>
               </div>
             )}
@@ -320,7 +320,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
           <div className="lg:col-span-2 space-y-8">
             {/* Overview Section */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Overview</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Επισκόπηση</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                 {property.bedrooms && (
                   <div className="flex items-center gap-3">
@@ -330,7 +330,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Bedroom</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Υπνοδωμάτιο</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{property.bedrooms}</p>
                     </div>
                   </div>
@@ -343,7 +343,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Bath</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Μπάνιο</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{property.bathrooms}</p>
                     </div>
                   </div>
@@ -357,7 +357,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Year Built</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Έτος Κατασκευής</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{property.year_built}</p>
                     </div>
                   </div>
@@ -370,7 +370,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Sqft</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">m²</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{area}</p>
                     </div>
                   </div>
@@ -383,7 +383,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Garage</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Γκαράζ</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{property.garage}</p>
                     </div>
                   </div>
@@ -404,7 +404,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
 
             {/* Property Description */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Property Description</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Περιγραφή Ακινήτου</h2>
               <div className="prose prose-sm md:prose-lg max-w-none text-gray-700 dark:text-gray-300 leading-relaxed">
                 {property.description.split('\n\n').map((paragraph, index) => (
                   <p key={index} className="mb-4">
@@ -416,10 +416,10 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
 
             {/* Property Details */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Property Details</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Λεπτομέρειες Ακινήτου</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-gray-600 dark:text-gray-400">Property ID</span>
+                  <span className="text-gray-600 dark:text-gray-400">Κωδικός Ακινήτου</span>
                   <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">RT{property.id}</span>
                 </div>
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
@@ -427,35 +427,35 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                   <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{formatPrice(property.price)}</span>
                 </div>
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-gray-600 dark:text-gray-400">Property Size</span>
-                  <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{area} Sq Ft</span>
+                  <span className="text-gray-600 dark:text-gray-400">Μέγεθος Ακινήτου</span>
+                  <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{area} m²</span>
                 </div>
                 {property.bathrooms && (
                   <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                    <span className="text-gray-600 dark:text-gray-400">Bathrooms</span>
+                    <span className="text-gray-600 dark:text-gray-400">Μπάνια</span>
                     <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.bathrooms}</span>
                   </div>
                 )}
                 {property.bedrooms && (
                   <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                    <span className="text-gray-600 dark:text-gray-400">Bedrooms</span>
+                    <span className="text-gray-600 dark:text-gray-400">Υπνοδωμάτια</span>
                     <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.bedrooms}</span>
                   </div>
                 )}
                 {property.year_built && (
                   <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                    <span className="text-gray-600 dark:text-gray-400">Year Built</span>
+                    <span className="text-gray-600 dark:text-gray-400">Έτος Κατασκευής</span>
                     <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.year_built}</span>
                   </div>
                 )}
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-gray-600 dark:text-gray-400">Property Type</span>
+                  <span className="text-gray-600 dark:text-gray-400">Τύπος Ακινήτου</span>
                   <span className="font-semibold text-gray-900 dark:text-white capitalize">{property.type}</span>
                 </div>
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-gray-600 dark:text-gray-400">Property Status</span>
+                  <span className="text-gray-600 dark:text-gray-400">Κατάσταση Ακινήτου</span>
                   <span className="font-semibold text-gray-900 dark:text-white capitalize">
-                    {property.listing_type === 'sale' ? 'For Sale' : 'For Rent'}
+                    {property.listing_type === 'sale' ? 'Προς Πώληση' : 'Προς Ενοικίαση'}
                   </span>
                 </div>
               </div>
@@ -463,23 +463,23 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
 
             {/* Address */}
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Address</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Διεύθυνση</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Address</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Διεύθυνση</p>
                   <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.address}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">City</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Πόλη</p>
                   <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{getCityName()}</p>
                 </div>
                 <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">State/county</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Νομός</p>
                   <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.country || 'N/A'}</p>
                 </div>
                 {property.postal_code && (
                   <div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Zip/Postal Code</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Τ.Κ.</p>
                     <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.postal_code}</p>
                   </div>
                 )}
@@ -489,7 +489,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
             {/* Features & Amenities */}
             {features.length > 0 && (
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Features & Amenities</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Χαρακτηριστικά & Ανέσεις</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {features.map((feature, index) => (
                     <div key={feature.id || index} className="flex items-center gap-3">
@@ -506,7 +506,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
             {/* Extra Details */}
             {property.extra_details && Object.keys(property.extra_details).length > 0 && (
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Additional Features</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Πρόσθετα Χαρακτηριστικά</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {Object.entries(property.extra_details).map(([key, value]) => (
                     <div key={key} className="flex items-center gap-3">
@@ -525,7 +525,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
             {/* Energy Class */}
             {property.energy_class && (
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Energy Class</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Ενεργειακή Κλάση</h2>
                 <div className="bg-gray-100 dark:bg-gray-700 rounded-xl p-6">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex gap-2">
@@ -555,7 +555,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
           <div className="lg:col-span-1">
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8 sticky top-6">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
-                Get More Information
+                Λάβετε Περισσότερες Πληροφορίες
               </h3>
 
               {property.agent && (
@@ -596,22 +596,22 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
               <form className="space-y-4">
                 <input
                   type="text"
-                  placeholder="Your Name"
+                  placeholder="Το όνομά σας"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 />
                 <input
                   type="email"
-                  placeholder="Your Email"
+                  placeholder="Το email σας"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 />
                 <input
                   type="tel"
-                  placeholder="Phone Number"
+                  placeholder="Αριθμός τηλεφώνου"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 />
                 <textarea
                   rows={4}
-                  placeholder="Message"
+                  placeholder="Μήνυμα"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none"
                   defaultValue={`I'm interested in ${property.title}`}
                 />
@@ -619,7 +619,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                   type="submit"
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold transition-colors shadow-lg"
                 >
-                  Send Message
+                  Αποστολή Μηνύματος
                 </button>
               </form>
             </div>

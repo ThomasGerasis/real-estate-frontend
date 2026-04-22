@@ -1,4 +1,6 @@
 import ContactForm from './ContactForm';
+import MandateForm from './MandateForm';
+import GeneralInquiryForm from './GeneralInquiryForm';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -336,6 +338,20 @@ function renderShortcode(
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
+        </div>
+      );
+
+    case 'mandate_form':
+      return (
+        <div key={`shortcode-${key}`} className="my-8">
+          <MandateForm />
+        </div>
+      );
+
+    case 'general_inquiry_form':
+      return (
+        <div key={`shortcode-${key}`} className="my-8">
+          <GeneralInquiryForm />
         </div>
       );
 

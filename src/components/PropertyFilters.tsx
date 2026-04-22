@@ -54,7 +54,7 @@ export default function PropertyFilters() {
           onClick={() => setIsOpen(!isOpen)}
           className="w-full flex items-center justify-between px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition"
         >
-          <span>Filters</span>
+          <span>Φίλτρα</span>
           <svg 
             className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} 
             fill="none" 
@@ -70,13 +70,13 @@ export default function PropertyFilters() {
       <div className={`${isOpen ? 'block' : 'hidden'} lg:block`}>
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sticky top-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Filters</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Φίλτρα</h3>
             {hasActiveFilters && (
               <button
                 onClick={clearAllFilters}
                 className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
               >
-                Clear all
+                Καθαρισμός
               </button>
             )}
           </div>
@@ -85,7 +85,7 @@ export default function PropertyFilters() {
             {/* Listing Type */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Listing Type
+                Τύπος Καταχώρησης
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <button
@@ -96,7 +96,7 @@ export default function PropertyFilters() {
                       : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400'
                   }`}
                 >
-                  For Sale
+                  Προς Πώληση
                 </button>
                 <button
                   onClick={() => handleFilterChange('type', searchParams.get('type') === 'rent' ? '' : 'rent')}
@@ -106,7 +106,7 @@ export default function PropertyFilters() {
                       : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400'
                   }`}
                 >
-                  For Rent
+                  Προς Ενοικίαση
                 </button>
               </div>
             </div>
@@ -114,26 +114,26 @@ export default function PropertyFilters() {
             {/* Property Type */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Property Type
+                Τύπος Ακινήτου
               </label>
               <select
                 defaultValue={searchParams.get('property_type') || ''}
                 onChange={(e) => handleFilterChange('property_type', e.target.value)}
                 className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">All Types</option>
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="villa">Villa</option>
-                <option value="land">Land</option>
-                <option value="commercial">Commercial</option>
+                <option value="">Όλοι οι τύποι</option>
+                <option value="apartment">Διαμέρισμα</option>
+                <option value="house">Μονοκατοικία</option>
+                <option value="villa">Βίλα</option>
+                <option value="land">Οικόπεδο</option>
+                <option value="commercial">Επαγγελματικός Χώρος</option>
               </select>
             </div>
 
             {/* City */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                City
+                Πόλη
               </label>
               <select
                 defaultValue={searchParams.get('city_id') || ''}
@@ -141,7 +141,7 @@ export default function PropertyFilters() {
                 className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 disabled={loadingCities}
               >
-                <option value="">All Cities</option>
+                <option value="">Όλες οι πόλεις</option>
                 {cities.map((city) => (
                   <option key={city.id} value={city.id}>
                     {city.name}
@@ -153,13 +153,13 @@ export default function PropertyFilters() {
             {/* Price Range */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Price Range
+                Εύρος Τιμών
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <input
                     type="number"
-                    placeholder="Min"
+                    placeholder="Ελάχ."
                     defaultValue={searchParams.get('min_price') || ''}
                     onChange={(e) => handleFilterChange('min_price', e.target.value)}
                     className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -168,7 +168,7 @@ export default function PropertyFilters() {
                 <div>
                   <input
                     type="number"
-                    placeholder="Max"
+                    placeholder="Μέγ."
                     defaultValue={searchParams.get('max_price') || ''}
                     onChange={(e) => handleFilterChange('max_price', e.target.value)}
                     className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -180,13 +180,13 @@ export default function PropertyFilters() {
             {/* Square Meters Range */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Square Meters
+                Τετραγωνικά Μέτρα
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <input
                     type="number"
-                    placeholder="Min m²"
+                    placeholder="Ελάχ. m²"
                     defaultValue={searchParams.get('min_area') || ''}
                     onChange={(e) => handleFilterChange('min_area', e.target.value)}
                     className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -195,7 +195,7 @@ export default function PropertyFilters() {
                 <div>
                   <input
                     type="number"
-                    placeholder="Max m²"
+                    placeholder="Μέγ. m²"
                     defaultValue={searchParams.get('max_area') || ''}
                     onChange={(e) => handleFilterChange('max_area', e.target.value)}
                     className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -207,14 +207,14 @@ export default function PropertyFilters() {
             {/* Bedrooms */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Bedrooms
+                Υπνοδωμάτια
               </label>
               <select
                 defaultValue={searchParams.get('bedrooms') || ''}
                 onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
                 className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Any</option>
+                <option value="">Οποιοδήποτε</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
@@ -226,14 +226,14 @@ export default function PropertyFilters() {
             {/* Bathrooms */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Bathrooms
+                Μπάνια
               </label>
               <select
                 defaultValue={searchParams.get('bathrooms') || ''}
                 onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
                 className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Any</option>
+                <option value="">Οποιοδήποτε</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
@@ -244,13 +244,13 @@ export default function PropertyFilters() {
             {/* Floor Range */}
             <div>
               <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Floor
+                Όροφος
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <input
                     type="number"
-                    placeholder="From"
+                    placeholder="Από"
                     defaultValue={searchParams.get('min_floor') || ''}
                     onChange={(e) => handleFilterChange('min_floor', e.target.value)}
                     className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -259,7 +259,7 @@ export default function PropertyFilters() {
                 <div>
                   <input
                     type="number"
-                    placeholder="To"
+                    placeholder="Έως"
                     defaultValue={searchParams.get('max_floor') || ''}
                     onChange={(e) => handleFilterChange('max_floor', e.target.value)}
                     className="w-full px-4 py-2.5 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"

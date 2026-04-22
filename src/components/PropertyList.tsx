@@ -54,7 +54,7 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
   if (!properties || properties.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-gray-500 text-lg">No properties found matching your criteria.</p>
+        <p className="text-gray-500 text-lg">Δεν βρέθηκαν ακίνητα με τα κριτήριά σας.</p>
       </div>
     );
   }
@@ -64,7 +64,9 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {properties.map((property) => {
           const propertyImages = getPropertyImages(property.images);
-          const featuredImageUrl = property.featured_image || propertyImages[0]?.url;
+          const featuredImageUrl = property.featured_image 
+            || propertyImages.find(img => img.is_primary)?.url 
+            || propertyImages[0]?.url;
           
           return (
             <Link 
@@ -89,7 +91,7 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
                 )}
                 <div className="absolute top-4 left-4 flex gap-2">
                   <span className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg">
-                    {property.listing_type === 'sale' ? 'For Sale' : 'For Rent'}
+                    {property.listing_type === 'sale' ? 'Προς Πώληση' : 'Προς Ενοικίαση'}
                   </span>
                   <span className="bg-white/90 backdrop-blur-sm text-gray-800 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg capitalize">
                     {property.type || property.property_type}
@@ -140,11 +142,11 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
                       {formatPrice(property.price, property.price_formatted)}
                     </p>
                     {property.listing_type === 'rent' && (
-                      <p className="text-xs text-gray-500 dark:text-gray-400">per month</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">ανά μήνα</p>
                     )}
                   </div>
                   <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold text-sm group-hover:gap-3 transition-all">
-                    View Details
+                    Προβολή
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -163,7 +165,7 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
               href={`?page=${pagination.current_page - 1}`}
               className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
             >
-              Previous
+              Προηγούμενο
             </Link>
           )}
           
@@ -200,7 +202,7 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
               href={`?page=${pagination.current_page + 1}`}
               className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
             >
-              Next
+              Επόμενο
             </Link>
           )}
         </div>
