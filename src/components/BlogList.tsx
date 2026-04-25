@@ -75,9 +75,9 @@ export default function BlogList({ posts, pagination }: BlogListProps) {
         ))}
       </div>
 
-      {pagination && pagination.last_page > 1 && (
+      {pagination && pagination.last_page != null && pagination.last_page > 1 && (
         <div className="flex justify-center mt-12 gap-2">
-          {Array.from({ length: pagination.last_page }, (_, i) => i + 1).map((page) => (
+          {Array.from({ length: pagination.last_page! }, (_, i) => i + 1).map((page) => (
             <Link
               key={page}
               href={`?page=${page}`}

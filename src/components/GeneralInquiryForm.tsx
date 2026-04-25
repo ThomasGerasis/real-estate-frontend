@@ -242,7 +242,7 @@ export default function GeneralInquiryForm() {
           disabled={isSubmitting}
           className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white py-4 rounded-xl font-semibold transition-colors shadow-lg disabled:cursor-not-allowed text-base"
         >
-          {isSubmitting ? 'Υποβολή...' : 'Υποβολή Ερωτήματος'}
+          {isSubmitting ? 'Υποβολή...' : 'Υποβολή'}
         </button>
       </form>
     </div>

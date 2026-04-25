@@ -2,14 +2,19 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Property, PropertyImage } from '@/lib/api';
+import { Property, PropertyImage, SiteSettings, getStorageUrl } from '@/lib/api';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import ShareButtons from './ShareButtons';
+
+const PropertyMap = dynamic(() => import('./PropertyMap'), { ssr: false });
 
 interface PropertyDetailProps {
   property: Property;
+  siteSettings?: SiteSettings;
 }
 
-export default function PropertyDetail({ property }: PropertyDetailProps) {
+export default function PropertyDetail({ property, siteSettings }: PropertyDetailProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
 
@@ -111,6 +116,9 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                 </p>
               )}
             </div>
+          </div>
+          <div className="mt-3">
+            <ShareButtons title={property.title} />
           </div>
         </div>
       </div>
@@ -423,7 +431,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                   <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">RT{property.id}</span>
                 </div>
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-gray-600 dark:text-gray-400">Price</span>
+                  <span className="text-gray-600 dark:text-gray-400">Τιμή</span>
                   <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{formatPrice(property.price)}</span>
                 </div>
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
@@ -461,30 +469,18 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
               </div>
             </div>
 
-            {/* Address */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Διεύθυνση</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Διεύθυνση</p>
-                  <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.address}</p>
-                </div>
-                <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Πόλη</p>
-                  <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{getCityName()}</p>
-                </div>
-                <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Νομός</p>
-                  <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.country || 'N/A'}</p>
-                </div>
-                {property.postal_code && (
-                  <div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Τ.Κ.</p>
-                    <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.postal_code}</p>
-                  </div>
-                )}
+            {/* Map */}
+            {property.latitude && property.longitude && (
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8 overflow-hidden">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Τοποθεσία</h2>
+                <PropertyMap
+                  latitude={property.latitude}
+                  longitude={property.longitude}
+                  title={property.title}
+                  address={property.address}
+                />
               </div>
-            </div>
+            )}
 
             {/* Features & Amenities */}
             {features.length > 0 && (
@@ -553,21 +549,21 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
 
           {/* Right Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8 sticky top-6">
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl p-4 md:p-8 sticky top-6">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
-                Λάβετε Περισσότερες Πληροφορίες
+                Φόρμα Ενδιαφέροντος
               </h3>
 
               {property.agent && (
                 <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-center mb-4">
-                    {property.agent.photo ? (
+                    {property.agent.avatar ? (
                       <Image
-                        src={property.agent.photo}
+                        src={getStorageUrl(property.agent.avatar)}
                         alt={property.agent.name}
                         width={64}
                         height={64}
-                        className="rounded-full"
+                        className="rounded-full object-cover"
                       />
                     ) : (
                       <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -578,18 +574,65 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
                     )}
                     <div className="ml-4">
                       <p className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.agent.name}</p>
-                      <div className="flex items-center mt-1">
-                        <div className="flex text-yellow-400">
-                          {[...Array(5)].map((_, i) => (
-                            <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                          ))}
-                        </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">5.0 · 3 reviews</span>
-                      </div>
+                      {property.agent.position && (
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{property.agent.position}</p>
+                      )}
                     </div>
                   </div>
+
+                  {/* Agent contact info */}
+                  <div className="space-y-2">
+                    {(property.agent.phone || siteSettings?.contact_phone) && (
+                      <a
+                        href={`tel:${property.agent.phone || siteSettings?.contact_phone}`}
+                        className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        {property.agent.phone || siteSettings?.contact_phone}
+                      </a>
+                    )}
+                    {(property.agent.email || siteSettings?.contact_email) && (
+                      <a
+                        href={`mailto:${property.agent.email || siteSettings?.contact_email}`}
+                        className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        {property.agent.email || siteSettings?.contact_email}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Site contact fallback (no agent) */}
+              {!property.agent && (siteSettings?.contact_phone || siteSettings?.contact_email) && (
+                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 space-y-2">
+                  {siteSettings?.contact_phone && (
+                    <a
+                      href={`tel:${siteSettings.contact_phone}`}
+                      className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                      {siteSettings.contact_phone}
+                    </a>
+                  )}
+                  {siteSettings?.contact_email && (
+                    <a
+                      href={`mailto:${siteSettings.contact_email}`}
+                      className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      {siteSettings.contact_email}
+                    </a>
+                  )}
                 </div>
               )}
 

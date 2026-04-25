@@ -15,6 +15,7 @@ export interface PropertyFilters {
   max_floor?: number;
   city_id?: number;
   district_id?: number;
+  subdistrict_id?: number;
   page?: number;
   per_page?: number;
 }

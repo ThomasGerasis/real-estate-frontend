@@ -22,8 +22,8 @@ export const Navbar = async () => {
   }
 
   return (
-    <div className="w-full">
-      <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-1">
+    <div className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md border-b border-gray-100 dark:border-gray-800">
+      <nav className="container relative flex flex-wrap items-center justify-between p-4 mx-auto lg:justify-between xl:px-1">
         {/* Logo  */}
         <Link href="/">
           <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">

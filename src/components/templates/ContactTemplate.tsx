@@ -8,17 +8,17 @@ interface ContactTemplateProps {
 
 export default function ContactTemplate({ page }: ContactTemplateProps) {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900 py-8">
       {/* Header Section */}
-      <div className="container max-w-7xl mx-auto px-4  pb-14 md:pb-28">
+      <div className="container max-w-7xl mx-auto px-4 pb-14 md:pb-28">
         {/* Title Section */}
         <div className="mb-16">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-gray-900 dark:text-white mb-4 leading-tight">
-              Have questions? ready to help!
+            Φόρμα Επικοινωνίας
             </h1>
             <p className="text-lg font-normal text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
-              Looking for your dream home or ready to sell? Our expert team offers personalized guidance and market expertise tailored to you.
+              Eπικοινωνήστε μαζί μας για το επόμενο σας ακίνητο ή για να πουλήσετε το δικό σας! Η ομάδα μας προσφέρει εξατομικευμένη καθοδήγηση και εμπειρία στην αγορά, προσαρμοσμένη στις ανάγκες σας.
             </p>
           </div>
         </div>
@@ -42,10 +42,10 @@ export default function ContactTemplate({ page }: ContactTemplateProps) {
                 {/* Top Content */}
                 <div>
                   <h5 className="text-2xl sm:text-3xl font-medium tracking-tight mb-3">
-                    Contact information
+                    Στοιχεία Επικοινωνίας
                   </h5>
                   <p className="text-base sm:text-lg font-normal text-white/80">
-                    Ready to find your dream home or sell your property? We&apos;re here to help!
+                    Είστε έτοιμοι να βρείτε το ακίνητο των ονείρων σας ή να πουλήσετε το δικό σας; Είμαστε εδώ για να σας βοηθήσουμε!
                   </p>
                 </div>
 
@@ -58,7 +58,7 @@ export default function ContactTemplate({ page }: ContactTemplateProps) {
                       </svg>
                     </div>
                     <p className="text-base sm:text-lg font-normal group-hover:text-blue-300 transition">
-                      +1 (234) 567-890
+                     +306944757700
                     </p>
                   </a>
 
@@ -70,7 +70,7 @@ export default function ContactTemplate({ page }: ContactTemplateProps) {
                       </svg>
                     </div>
                     <p className="text-base sm:text-lg font-normal group-hover:text-blue-300 transition">
-                      support@example.com
+                      contact@citymesitiko.com
                     </p>
                   </a>
 
@@ -81,7 +81,7 @@ export default function ContactTemplate({ page }: ContactTemplateProps) {
                       </svg>
                     </div>
                     <p className="text-base sm:text-lg font-normal">
-                      123 Main Street, City, State 12345
+                      Μυκάλης 28, 30, Νέα Σμύρνη 171 23, Ελλάδα
                     </p>
                   </div>
                 </div>

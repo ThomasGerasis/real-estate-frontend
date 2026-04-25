@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { contactService, ContactFormData } from '@/lib/api';
+import { contactService, ContactServiceFormData } from '@/lib/api';
 
 interface ContactFormProps {
   propertyId?: number;
@@ -9,7 +9,7 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
-  const [formData, setFormData] = useState<ContactFormData>({
+  const [formData, setFormData] = useState<ContactServiceFormData>({
     name: '',
     email: '',
     phone: '',

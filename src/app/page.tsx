@@ -3,7 +3,8 @@ import HeroSearchSection from "@/components/HeroSearchSection";
 import ApartmentTypes from "@/components/ApartmentTypes";
 import ServicesCards from "@/components/ServicesCards";
 import FeaturedProperties from "@/components/FeaturedProperties";
-import CitiesSection from "@/components/CitiesSection";
+import ParallaxSection from "@/components/ParallaxSection";
+import DistrictsSection from "@/components/DistrictsSection";
 import AboutSection from "@/components/AboutSection";
 import { Testimonials } from "@/components/Testimonials";
 import BlogSection from "@/components/BlogSection";
@@ -22,11 +23,13 @@ export default function Home() {
   return (
     <>
       <HeroSearchSection />
-      <CitiesSection />
+      <DistrictsSection />
       <FeaturedProperties />
       <ApartmentTypes />
+      <ParallaxSection />
       <AboutSection />
       <ServicesCards />
+
       {/* <Testimonials />
       <BlogSection /> */}
     </>

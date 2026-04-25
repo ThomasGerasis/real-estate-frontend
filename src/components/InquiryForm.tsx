@@ -137,7 +137,7 @@ export default function InquiryForm({ propertyId, propertyTitle }: InquiryFormPr
 
       {submitStatus === 'success' && (
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-200 px-4 py-3 rounded-lg">
-          Thank you! Your inquiry has been submitted successfully. We'll get back to you soon.
+          Thank you! Your inquiry has been submitted successfully. We&apos;ll get back to you soon.
         </div>
       )}
 

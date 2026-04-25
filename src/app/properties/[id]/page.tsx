@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { propertyService } from '@/lib/api';
+import { propertyService, settingService } from '@/lib/api';
 import PropertyDetail from '@/components/PropertyDetail';
 
 interface PropertyPageProps {
@@ -49,9 +49,12 @@ export async function generateMetadata({ params }: PropertyPageProps): Promise<M
 export default async function PropertyPage({ params }: PropertyPageProps) {
   try {
     const id = parseInt(params.id);
-    const property = await propertyService.getPropertyById(id);
+    const [property, siteSettings] = await Promise.all([
+      propertyService.getPropertyById(id),
+      settingService.getAllSettings().catch(() => undefined),
+    ]);
     
-    return <PropertyDetail property={property} />;
+    return <PropertyDetail property={property} siteSettings={siteSettings} />;
   } catch (error) {
     notFound();
   }

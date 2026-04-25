@@ -148,6 +148,20 @@ export interface District {
   latitude?: number;
   longitude?: number;
   properties_count?: number;
+  featured_image?: string;
+  image?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface SubDistrict {
+  id: number;
+  name: string;
+  slug?: string;
+  district_id: number;
+  latitude?: number;
+  longitude?: number;
+  properties_count?: number;
   created_at?: string;
   updated_at?: string;
 }

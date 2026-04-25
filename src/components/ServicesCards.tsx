@@ -24,7 +24,7 @@ export default function ServicesCards() {
           <path d="M21 7h-6V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v2H3a1 1 0 000 2h1v11a2 2 0 002 2h12a2 2 0 002-2V9h1a1 1 0 000-2zM11 5h2v2h-2V5zm7 15H6V9h12v11z" />
         </svg>
       ),
-      link: '/properties',
+      link: '/anathesi',
       linkText: 'Δημοσιεύστε αγγελία',
     },
     {
@@ -60,7 +60,7 @@ export default function ServicesCards() {
               className="bg-gray-50 dark:bg-gray-900 rounded-2xl text-center hover:shadow-xl transition-all border border-gray-100 dark:border-gray-700 overflow-hidden"
             >
               <div className="relative h-48 w-full">
-                <Image src={service.image} alt={service.title} fill className="object-cover" />
+                <Image src={service.image} loading='lazy' alt={service.title} fill className="object-cover" />
               </div>
               <div className="p-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full mb-6">

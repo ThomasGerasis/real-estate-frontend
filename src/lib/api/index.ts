@@ -8,5 +8,6 @@ export * from './services/agent';
 export * from './services/post';
 export * from './services/city';
 export * from './services/setting';
-export * from './services/contact';
+export { contactService } from './services/contact';
+export type { ContactServiceFormData, ContactFormResponse } from './services/contact';
 export * from './services/formService';

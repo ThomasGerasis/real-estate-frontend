@@ -10,18 +10,18 @@ export default function AboutSection() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="relative rounded-2xl h-64 overflow-hidden">
-                  <Image src="/img/house-livingroom.jpg" alt="Living room" fill className="object-cover" />
+                  <Image src="/img/house-livingroom.jpg" loading='lazy' alt="Living room" fill className="object-cover" />
                 </div>
                 <div className="relative rounded-2xl h-48 overflow-hidden">
-                  <Image src="/img/house-kicthen.jpg" alt="Kitchen" fill className="object-cover" />
+                  <Image src="/img/house-kicthen.jpg" loading='lazy' alt="Kitchen" fill className="object-cover" />
                 </div>
               </div>
               <div className="space-y-4 pt-8">
                 <div className="relative rounded-2xl h-48 overflow-hidden">
-                  <Image src="/img/house-neigbourhood.jpg" alt="Neighbourhood" fill className="object-cover" />
+                  <Image src="/img/house-neigbourhood.jpg" loading='lazy' alt="Neighbourhood" fill className="object-cover" />
                 </div>
                 <div className="relative rounded-2xl h-64 overflow-hidden">
-                  <Image src="/img/real-estate-plan.jpg" alt="Real estate plan" fill className="object-cover" />
+                  <Image src="/img/real-estate-plan.jpg" loading='lazy' alt="Real estate plan" fill className="object-cover" />
                 </div>
               </div>
             </div>

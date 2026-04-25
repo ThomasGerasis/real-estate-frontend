@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Property, PaginatedResponse } from '@/lib/api';
+import { Property, PaginatedResponse, PropertyImage } from '@/lib/api';
 
 interface PropertyListProps {
   properties: Property[];
@@ -108,7 +108,10 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
                   <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
-                  <span className="line-clamp-1">{property.address}, {getCityName(property.city)}</span>
+                  <span className="line-clamp-1">
+                    {getCityName(property.city)}
+                    {property.district && typeof property.district === 'object' ? `, ${property.district.name}` : ''}
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-4 mb-4 text-sm text-gray-700 dark:text-gray-300">
@@ -169,15 +172,15 @@ export default function PropertyList({ properties, pagination }: PropertyListPro
             </Link>
           )}
           
-          {Array.from({ length: Math.min(pagination.last_page, 5) }, (_, i) => {
+          {Array.from({ length: Math.min(pagination.last_page!, 5) }, (_, i) => {
             let pageNum;
             const currentPage = pagination.current_page || 1;
-            if (pagination.last_page <= 5) {
+            if ((pagination.last_page ?? 0) <= 5) {
               pageNum = i + 1;
             } else if (currentPage <= 3) {
               pageNum = i + 1;
-            } else if (currentPage >= pagination.last_page - 2) {
-              pageNum = pagination.last_page - 4 + i;
+            } else if (currentPage >= (pagination.last_page ?? 0) - 2) {
+              pageNum = (pagination.last_page ?? 0) - 4 + i;
             } else {
               pageNum = currentPage - 2 + i;
             }

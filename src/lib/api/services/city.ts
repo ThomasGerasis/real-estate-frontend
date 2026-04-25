@@ -1,5 +1,5 @@
 import { apiClient } from '../client';
-import { ApiResponse, City, District, PaginatedResponse } from '../types';
+import { ApiResponse, City, District, SubDistrict, PaginatedResponse } from '../types';
 
 export const cityService = {
   async getCities(page?: number, per_page?: number): Promise<PaginatedResponse<City>> {
@@ -15,6 +15,11 @@ export const cityService = {
 
   async getCityDistricts(cityId: number): Promise<District[]> {
     const response = await apiClient.get<ApiResponse<District[]>>(`/cities/${cityId}/districts`);
+    return response.data;
+  },
+
+  async getDistrictSubdistricts(districtId: number): Promise<SubDistrict[]> {
+    const response = await apiClient.get<ApiResponse<SubDistrict[]>>(`/districts/${districtId}/subdistricts`);
     return response.data;
   },
 };

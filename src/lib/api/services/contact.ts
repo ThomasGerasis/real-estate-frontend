@@ -1,7 +1,8 @@
 import { apiClient } from '../client';
 import { ApiResponse } from '../types';
 
-export interface ContactFormData {
+// Rename to avoid conflict with formService's ContactFormData export
+export interface ContactServiceFormData {
   name: string;
   email: string;
   phone?: string;
@@ -15,12 +16,12 @@ export interface ContactFormResponse {
 }
 
 export const contactService = {
-  async submitContactForm(data: ContactFormData): Promise<ContactFormResponse> {
+  async submitContactForm(data: ContactServiceFormData): Promise<ContactFormResponse> {
     const response = await apiClient.post<ApiResponse<ContactFormResponse>>('/contact', data);
     return response.data;
   },
 
-  async submitPropertyInquiry(data: ContactFormData): Promise<ContactFormResponse> {
+  async submitPropertyInquiry(data: ContactServiceFormData): Promise<ContactFormResponse> {
     const response = await apiClient.post<ApiResponse<ContactFormResponse>>('/property-inquiry', data);
     return response.data;
   },
