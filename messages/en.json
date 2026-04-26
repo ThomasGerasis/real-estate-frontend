@@ -59,6 +59,18 @@
     "bath": "Bath",
     "sqft": "Sqft",
     "garage": "Garage",
+    "parkingSpots": "Parking Spots",
+    "garageType": "Garage Type",
+    "elevator": "Elevator",
+    "heatingType": "Heating",
+    "heatingFuel": "Heating Fuel",
+    "fireplace": "Fireplace",
+    "furnished": "Furnished",
+    "propertyPosition": "Property Position",
+    "propertyCondition": "Property Condition",
+    "floorType": "Floor Type",
+    "yes": "Yes",
+    "no": "No",
     "floor": "Floor",
     "city": "City",
     "state": "State/County",
@@ -66,6 +78,36 @@
     "getMoreInfo": "Get More Information",
     "energyEfficiency": "Energy Efficiency",
     "viewAllPhotos": "View all photos"
+  },
+  "heatingTypes": {
+    "central": "Central",
+    "autonomous": "Autonomous (individual installation)",
+    "none": "No heating"
+  },
+  "heatingFuels": {
+    "natural_gas": "Natural gas",
+    "oil": "Oil",
+    "electricity": "Electricity",
+    "heat_pump": "Heat pump",
+    "other": "Other"
+  },
+  "garageTypes": {
+    "open": "Open",
+    "pilotis": "Pilotis",
+    "basement": "Basement",
+    "closed": "Closed"
+  },
+  "propertyPositions": {
+    "front": "Front-facing",
+    "interior": "Interior",
+    "corner": "Corner",
+    "through": "Through"
+  },
+  "propertyConditions": {
+    "new": "New build",
+    "renovated": "Renovated",
+    "excellent": "Excellent",
+    "needs_renovation": "Needs renovation"
   },
   "propertyTypes": {
     "apartment": "Apartment",

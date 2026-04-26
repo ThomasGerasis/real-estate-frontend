@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { settingService } from "@/lib/api";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "greek"] });
 
 export async function generateMetadata(): Promise<Metadata> {
   let siteName = "Real Estate";
@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="el" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class">
           <Navbar />

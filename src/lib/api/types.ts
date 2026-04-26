@@ -27,6 +27,15 @@ export interface Property {
   year_built?: number;
   energy_class?: string;
   garage?: number;
+  garage_type?: string;
+  elevator?: number | boolean;
+  heating_type?: string;
+  heating_fuel?: string;
+  fireplace?: number | boolean;
+  furnished?: number | boolean | string;
+  property_position?: string;
+  property_condition?: string;
+  floor_type?: string;
   address: string;
   city: string | City;
   city_id?: number;

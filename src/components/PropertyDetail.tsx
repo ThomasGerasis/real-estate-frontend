@@ -92,6 +92,58 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
     setSelectedImage((prev) => (prev - 1 + propertyImages.length) % propertyImages.length);
   };
 
+  const toGreekUpperCase = (str: string) =>
+    str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+
+  const propertyTypeLabels: Record<string, string> = {
+    apartment: 'Διαμέρισμα',
+    house: 'Μονοκατοικία',
+    villa: 'Βίλα',
+    land: 'Οικόπεδο',
+    commercial: 'Επαγγελματικός Χώρος',
+  };
+
+  const heatingTypeLabels: Record<string, string> = {
+    central: 'Κεντρική',
+    autonomous: 'Αυτόνομη με ατομική εγκατάσταση',
+    none: 'Χωρίς θέρμανση',
+  };
+
+  const heatingFuelLabels: Record<string, string> = {
+    gas: 'Φυσικό αέριο',
+    oil: 'Πετρέλαιο',
+    electric: 'Ηλεκτρικό ρεύμα',
+    heat_pump: 'Αντλία θερμότητας',
+    other: 'Άλλο',
+  };
+
+  const garageTypeLabels: Record<string, string> = {
+    open: 'Ανοιχτό',
+    pilotis: 'Πιλοτή',
+    underground: 'Υπόγειο',
+    closed: 'Κλειστό',
+  };
+
+  const propertyPositionLabels: Record<string, string> = {
+    front: 'Προσόψεως',
+    interior: 'Εσωτερικό',
+    corner: 'Γωνιακό',
+    through: 'Διαμπερές',
+  };
+
+  const propertyConditionLabels: Record<string, string> = {
+    new: 'Νεόδμητο',
+    renovated: 'Ανακαινισμένο',
+    excellent: 'Άριστη',
+    needs_renovation: 'Χρήζει ανακαίνισης',
+  };
+
+  const resolveLabel = (map: Record<string, string>, value: string) =>
+    map[value] ?? value;
+
+  const isTruthy = (val: number | boolean | string | undefined | null) =>
+    val != null && val !== 0 && val !== false && val !== '';
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header with Title and Price */}
@@ -112,7 +164,7 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
               </div>
               {pricePerSqft > 0 && (
                 <p className="text-gray-600 dark:text-gray-400 text-sm">
-                  ${pricePerSqft.toFixed(2)}/m²
+                  €{pricePerSqft.toFixed(2)}/m²
                 </p>
               )}
             </div>
@@ -338,7 +390,7 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Υπνοδωμάτιο</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Υπνοδωμάτια</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{property.bedrooms}</p>
                     </div>
                   </div>
@@ -351,8 +403,21 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Μπάνιο</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Μπάνια</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{property.bathrooms}</p>
+                    </div>
+                  </div>
+                )}
+                {area > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                      <svg className="w-6 h-6 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 00.707-1.707l-9-9a.999.999 0 00-1.414 0l-9 9A1 1 0 003 13z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">m²</p>
+                      <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{area}</p>
                     </div>
                   </div>
                 )}
@@ -370,19 +435,6 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                     </div>
                   </div>
                 )}
-                {area > 0 && (
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                      <svg className="w-6 h-6 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 00.707-1.707l-9-9a.999.999 0 00-1.414 0l-9 9A1 1 0 003 13z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">m²</p>
-                      <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{area}</p>
-                    </div>
-                  </div>
-                )}
                 {property.garage && (
                   <div className="flex items-center gap-3">
                     <div className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
@@ -391,7 +443,7 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Γκαράζ</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Θέσεις Στάθμευσης</p>
                       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{property.garage}</p>
                     </div>
                   </div>
@@ -403,8 +455,8 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                     </svg>
                   </div>
                   <div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Property Type</p>
-                    <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white capitalize">{property.type}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Τύπος Ακινήτου</p>
+                    <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{resolveLabel(propertyTypeLabels, property.type)}</p>
                   </div>
                 </div>
               </div>
@@ -428,7 +480,7 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                   <span className="text-gray-600 dark:text-gray-400">Κωδικός Ακινήτου</span>
-                  <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">RT{property.id}</span>
+                  <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">CM{property.id}</span>
                 </div>
                 <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                   <span className="text-gray-600 dark:text-gray-400">Τιμή</span>
@@ -438,16 +490,26 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                   <span className="text-gray-600 dark:text-gray-400">Μέγεθος Ακινήτου</span>
                   <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{area} m²</span>
                 </div>
-                {property.bathrooms && (
-                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                    <span className="text-gray-600 dark:text-gray-400">Μπάνια</span>
-                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.bathrooms}</span>
-                  </div>
-                )}
+                <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                  <span className="text-gray-600 dark:text-gray-400">Τύπος Ακινήτου</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{resolveLabel(propertyTypeLabels, property.type)}</span>
+                </div>
+                <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                  <span className="text-gray-600 dark:text-gray-400">Διαθεσιμότητα</span>
+                  <span className="font-semibold text-gray-900 dark:text-white capitalize">
+                    {property.listing_type === 'sale' ? 'Προς Πώληση' : 'Προς Ενοικίαση'}
+                  </span>
+                </div>
                 {property.bedrooms && (
                   <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                     <span className="text-gray-600 dark:text-gray-400">Υπνοδωμάτια</span>
                     <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.bedrooms}</span>
+                  </div>
+                )}
+                {property.bathrooms && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Μπάνια</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.bathrooms}</span>
                   </div>
                 )}
                 {property.year_built && (
@@ -456,16 +518,84 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                     <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.year_built}</span>
                   </div>
                 )}
-                <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-gray-600 dark:text-gray-400">Τύπος Ακινήτου</span>
-                  <span className="font-semibold text-gray-900 dark:text-white capitalize">{property.type}</span>
-                </div>
-                <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-gray-600 dark:text-gray-400">Κατάσταση Ακινήτου</span>
-                  <span className="font-semibold text-gray-900 dark:text-white capitalize">
-                    {property.listing_type === 'sale' ? 'Προς Πώληση' : 'Προς Ενοικίαση'}
-                  </span>
-                </div>
+                {property.garage != null && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Θέσεις Στάθμευσης</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.garage}</span>
+                  </div>
+                )}
+                {property.garage_type && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Τύπος Γκαράζ</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {resolveLabel(garageTypeLabels, property.garage_type)}
+                    </span>
+                  </div>
+                )}
+                {property.elevator != null && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Ασανσέρ</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {isTruthy(property.elevator) ? 'Ναι' : 'Όχι'}
+                    </span>
+                  </div>
+                )}
+                {property.heating_type && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Θέρμανση</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {resolveLabel(heatingTypeLabels, property.heating_type)}
+                    </span>
+                  </div>
+                )}
+                {property.heating_fuel && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Είδος Θέρμανσης</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {resolveLabel(heatingFuelLabels, property.heating_fuel)}
+                    </span>
+                  </div>
+                )}
+                {property.fireplace != null && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Τζάκι</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {isTruthy(property.fireplace) ? 'Ναι' : 'Όχι'}
+                    </span>
+                  </div>
+                )}
+                {property.furnished != null && property.furnished !== '' && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Επιπλωμένο</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {typeof property.furnished === 'string' && property.furnished !== '0' && property.furnished !== '1'
+                        ? property.furnished
+                        : isTruthy(property.furnished) ? 'Ναι' : 'Όχι'}
+                    </span>
+                  </div>
+                )}
+                {property.property_position && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Θέση Ακινήτου</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {resolveLabel(propertyPositionLabels, property.property_position)}
+                    </span>
+                  </div>
+                )}
+                {property.property_condition && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Κατάσταση Ακινήτου</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">
+                      {resolveLabel(propertyConditionLabels, property.property_condition)}
+                    </span>
+                  </div>
+                )}
+                {property.floor_type && (
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">Είδος Πατώματος</span>
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.floor_type}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -529,7 +659,7 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                         <div
                           key={grade}
                           className={`px-3 py-1 rounded text-sm font-bold ${
-                            grade === property.energy_class?.toUpperCase()
+                            grade === property.energy_class?.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase()
                               ? 'bg-green-600 text-white' 
                               : 'bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300'
                           }`}
@@ -540,7 +670,7 @@ export default function PropertyDetail({ property, siteSettings }: PropertyDetai
                     </div>
                   </div>
                   <p className="text-gray-600 dark:text-gray-400 text-sm mt-4">
-                    Energy Efficiency: <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{property.energy_class?.toUpperCase()}</span>
+                    Energy Efficiency: <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white">{toGreekUpperCase(property.energy_class)}</span>
                   </p>
                 </div>
               </div>

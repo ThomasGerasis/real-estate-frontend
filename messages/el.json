@@ -59,6 +59,18 @@
     "bath": "Μπάνιο",
     "sqft": "Τ.μ.",
     "garage": "Γκαράζ",
+    "parkingSpots": "Θέσεις Στάθμευσης",
+    "garageType": "Τύπος Γκαράζ",
+    "elevator": "Ασανσέρ",
+    "heatingType": "Θέρμανση",
+    "heatingFuel": "Είδος Θέρμανσης",
+    "fireplace": "Τζάκι",
+    "furnished": "Επιπλωμένο",
+    "propertyPosition": "Θέση Ακινήτου",
+    "propertyCondition": "Κατάσταση Ακινήτου",
+    "floorType": "Είδος Πατώματος",
+    "yes": "Ναι",
+    "no": "Όχι",
     "floor": "Όροφος",
     "city": "Πόλη",
     "state": "Νομός",
@@ -66,6 +78,36 @@
     "getMoreInfo": "Λάβετε Περισσότερες Πληροφορίες",
     "energyEfficiency": "Ενεργειακή Απόδοση",
     "viewAllPhotos": "Δείτε όλες τις φωτογραφίες"
+  },
+  "heatingTypes": {
+    "central": "Κεντρική",
+    "autonomous": "Αυτόνομη με ατομική εγκατάσταση",
+    "none": "Χωρίς θέρμανση"
+  },
+  "heatingFuels": {
+    "gas": "Φυσικό αέριο",
+    "oil": "Πετρέλαιο",
+    "electricity": "Ηλεκτρικό ρεύμα",
+    "heat_pump": "Αντλία θερμότητας",
+    "other": "Άλλο"
+  },
+  "garageTypes": {
+    "open": "Ανοιχτό",
+    "pilotis": "Πιλοτή",
+    "basement": "Υπόγειο",
+    "closed": "Κλειστό"
+  },
+  "propertyPositions": {
+    "front": "Προσόψεως",
+    "interior": "Εσωτερικό",
+    "corner": "Γωνιακό",
+    "through": "Διαμπερές"
+  },
+  "propertyConditions": {
+    "new": "Νεόδμητο",
+    "renovated": "Ανακαινισμένο",
+    "excellent": "Άριστη",
+    "needs_renovation": "Χρήζει ανακαίνισης"
   },
   "propertyTypes": {
     "apartment": "Διαμέρισμα",
